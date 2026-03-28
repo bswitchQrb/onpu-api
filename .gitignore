@@ -1,0 +1,12 @@
+build/
+.gradle/
+.idea/
+*.iml
+*.class
+*.jar
+*.war
+
+# OS
+.DS_Store
+Thumbs.db
+src/main/java/com/onpu/service/EmailService.java
