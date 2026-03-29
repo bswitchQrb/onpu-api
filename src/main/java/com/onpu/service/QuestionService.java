@@ -28,7 +28,7 @@ public class QuestionService {
         var results = dsl.select(
                 ANSWER_LOGS.QUESTION,
                 DSL.count().as("answers"),
-                DSL.sum(ANSWER_LOGS.IS_CORRECT).as("correct")
+                DSL.sum(ANSWER_LOGS.IS_CORRECT.cast(Integer.class)).as("correct")
             )
             .from(ANSWER_LOGS)
             .where(ANSWER_LOGS.USER_ID.eq(userId))

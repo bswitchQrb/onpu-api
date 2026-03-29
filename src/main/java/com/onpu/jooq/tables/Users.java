@@ -5,7 +5,7 @@ package com.onpu.jooq.tables;
 
 
 import com.onpu.jooq.Keys;
-import com.onpu.jooq.Onpu;
+import com.onpu.jooq.Public;
 import com.onpu.jooq.tables.AnswerLogs.AnswerLogsPath;
 import com.onpu.jooq.tables.records.UsersRecord;
 
@@ -46,7 +46,7 @@ public class Users extends TableImpl<UsersRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>onpu.users</code>
+     * The reference instance of <code>public.users</code>
      */
     public static final Users USERS = new Users();
 
@@ -59,34 +59,34 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     /**
-     * The column <code>onpu.users.id</code>.
+     * The column <code>public.users.id</code>.
      */
     public final TableField<UsersRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>onpu.users.login_id</code>.
+     * The column <code>public.users.login_id</code>.
      */
-    public final TableField<UsersRecord, String> LOGIN_ID = createField(DSL.name("login_id"), SQLDataType.VARCHAR(50).nullable(false).defaultValue(DSL.inline("", SQLDataType.VARCHAR)), this, "");
+    public final TableField<UsersRecord, String> LOGIN_ID = createField(DSL.name("login_id"), SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>onpu.users.password_hash</code>.
+     * The column <code>public.users.password_hash</code>.
      */
     public final TableField<UsersRecord, String> PASSWORD_HASH = createField(DSL.name("password_hash"), SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>onpu.users.nickname</code>.
+     * The column <code>public.users.nickname</code>.
      */
     public final TableField<UsersRecord, String> NICKNAME = createField(DSL.name("nickname"), SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>onpu.users.created_at</code>.
+     * The column <code>public.users.created_at</code>.
      */
-    public final TableField<UsersRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(0).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<UsersRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
 
     /**
-     * The column <code>onpu.users.updated_at</code>.
+     * The column <code>public.users.updated_at</code>.
      */
-    public final TableField<UsersRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), SQLDataType.LOCALDATETIME(0).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<UsersRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -97,21 +97,21 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     /**
-     * Create an aliased <code>onpu.users</code> table reference
+     * Create an aliased <code>public.users</code> table reference
      */
     public Users(String alias) {
         this(DSL.name(alias), USERS);
     }
 
     /**
-     * Create an aliased <code>onpu.users</code> table reference
+     * Create an aliased <code>public.users</code> table reference
      */
     public Users(Name alias) {
         this(alias, USERS);
     }
 
     /**
-     * Create a <code>onpu.users</code> table reference
+     * Create a <code>public.users</code> table reference
      */
     public Users() {
         this(DSL.name("users"), null);
@@ -152,7 +152,7 @@ public class Users extends TableImpl<UsersRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Onpu.ONPU;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -162,23 +162,23 @@ public class Users extends TableImpl<UsersRecord> {
 
     @Override
     public UniqueKey<UsersRecord> getPrimaryKey() {
-        return Keys.KEY_USERS_PRIMARY;
+        return Keys.USERS_PKEY;
     }
 
     @Override
     public List<UniqueKey<UsersRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.KEY_USERS_UK_LOGIN_ID);
+        return Arrays.asList(Keys.USERS_LOGIN_ID_KEY);
     }
 
     private transient AnswerLogsPath _answerLogs;
 
     /**
-     * Get the implicit to-many join path to the <code>onpu.answer_logs</code>
+     * Get the implicit to-many join path to the <code>public.answer_logs</code>
      * table
      */
     public AnswerLogsPath answerLogs() {
         if (_answerLogs == null)
-            _answerLogs = new AnswerLogsPath(this, null, Keys.ANSWER_LOGS_IBFK_1.getInverseKey());
+            _answerLogs = new AnswerLogsPath(this, null, Keys.ANSWER_LOGS__ANSWER_LOGS_USER_ID_FKEY.getInverseKey());
 
         return _answerLogs;
     }

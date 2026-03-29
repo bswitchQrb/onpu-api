@@ -21,84 +21,84 @@ public class AnswerLogsRecord extends UpdatableRecordImpl<AnswerLogsRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>onpu.answer_logs.id</code>.
+     * Setter for <code>public.answer_logs.id</code>.
      */
     public void setId(Long value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>onpu.answer_logs.id</code>.
+     * Getter for <code>public.answer_logs.id</code>.
      */
     public Long getId() {
         return (Long) get(0);
     }
 
     /**
-     * Setter for <code>onpu.answer_logs.user_id</code>.
+     * Setter for <code>public.answer_logs.user_id</code>.
      */
     public void setUserId(Long value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>onpu.answer_logs.user_id</code>.
+     * Getter for <code>public.answer_logs.user_id</code>.
      */
     public Long getUserId() {
         return (Long) get(1);
     }
 
     /**
-     * Setter for <code>onpu.answer_logs.mode</code>.
+     * Setter for <code>public.answer_logs.mode</code>.
      */
     public void setMode(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>onpu.answer_logs.mode</code>.
+     * Getter for <code>public.answer_logs.mode</code>.
      */
     public String getMode() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>onpu.answer_logs.question</code>.
+     * Setter for <code>public.answer_logs.question</code>.
      */
     public void setQuestion(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>onpu.answer_logs.question</code>.
+     * Getter for <code>public.answer_logs.question</code>.
      */
     public String getQuestion() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>onpu.answer_logs.is_correct</code>.
+     * Setter for <code>public.answer_logs.is_correct</code>.
      */
-    public void setIsCorrect(Byte value) {
+    public void setIsCorrect(Boolean value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>onpu.answer_logs.is_correct</code>.
+     * Getter for <code>public.answer_logs.is_correct</code>.
      */
-    public Byte getIsCorrect() {
-        return (Byte) get(4);
+    public Boolean getIsCorrect() {
+        return (Boolean) get(4);
     }
 
     /**
-     * Setter for <code>onpu.answer_logs.answered_at</code>.
+     * Setter for <code>public.answer_logs.answered_at</code>.
      */
     public void setAnsweredAt(LocalDateTime value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>onpu.answer_logs.answered_at</code>.
+     * Getter for <code>public.answer_logs.answered_at</code>.
      */
     public LocalDateTime getAnsweredAt() {
         return (LocalDateTime) get(5);
@@ -127,7 +127,7 @@ public class AnswerLogsRecord extends UpdatableRecordImpl<AnswerLogsRecord> {
     /**
      * Create a detached, initialised AnswerLogsRecord
      */
-    public AnswerLogsRecord(Long id, Long userId, String mode, String question, Byte isCorrect, LocalDateTime answeredAt) {
+    public AnswerLogsRecord(Long id, Long userId, String mode, String question, Boolean isCorrect, LocalDateTime answeredAt) {
         super(AnswerLogs.ANSWER_LOGS);
 
         setId(id);

@@ -27,9 +27,9 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.6")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
     implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-mysql")
-    runtimeOnly("com.mysql:mysql-connector-j")
-    jooqCodegen("com.mysql:mysql-connector-j")
+    implementation("org.flywaydb:flyway-database-postgresql")
+    runtimeOnly("org.postgresql:postgresql")
+    jooqCodegen("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 }
@@ -37,16 +37,16 @@ dependencies {
 jooq {
     configuration {
         jdbc {
-            driver = "com.mysql.cj.jdbc.Driver"
-            url = "jdbc:mysql://localhost:3307/onpu?useSSL=false&allowPublicKeyRetrieval=true"
+            driver = "org.postgresql.Driver"
+            url = "jdbc:postgresql://localhost:5432/onpu"
             user = "onpu"
             password = "onpu"
         }
         generator {
             name = "org.jooq.codegen.JavaGenerator"
             database {
-                name = "org.jooq.meta.mysql.MySQLDatabase"
-                inputSchema = "onpu"
+                name = "org.jooq.meta.postgres.PostgresDatabase"
+                inputSchema = "public"
                 includes = ".*"
                 excludes = "flyway_schema_history"
             }
