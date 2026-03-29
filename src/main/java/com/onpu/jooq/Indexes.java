@@ -13,7 +13,7 @@ import org.jooq.impl.Internal;
 
 
 /**
- * A class modelling indexes of tables in onpu.
+ * A class modelling indexes of tables in public.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Indexes {
@@ -22,5 +22,5 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
-    public static final Index ANSWER_LOGS_IDX_USER_MODE = Internal.createIndex(DSL.name("idx_user_mode"), AnswerLogs.ANSWER_LOGS, new OrderField[] { AnswerLogs.ANSWER_LOGS.USER_ID, AnswerLogs.ANSWER_LOGS.MODE }, false);
+    public static final Index IDX_ANSWER_LOGS_USER_MODE = Internal.createIndex(DSL.name("idx_answer_logs_user_mode"), AnswerLogs.ANSWER_LOGS, new OrderField[] { AnswerLogs.ANSWER_LOGS.USER_ID, AnswerLogs.ANSWER_LOGS.MODE }, false);
 }
