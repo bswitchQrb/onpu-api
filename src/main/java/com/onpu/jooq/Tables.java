@@ -9,18 +9,18 @@ import com.onpu.jooq.tables.Users;
 
 
 /**
- * Convenience access to all tables in onpu.
+ * Convenience access to all tables in public.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
 
     /**
-     * The table <code>onpu.answer_logs</code>.
+     * The table <code>public.answer_logs</code>.
      */
     public static final AnswerLogs ANSWER_LOGS = AnswerLogs.ANSWER_LOGS;
 
     /**
-     * The table <code>onpu.users</code>.
+     * The table <code>public.users</code>.
      */
     public static final Users USERS = Users.USERS;
 }

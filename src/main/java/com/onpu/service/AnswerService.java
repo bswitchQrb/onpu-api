@@ -31,7 +31,7 @@ public class AnswerService {
             .set(ANSWER_LOGS.USER_ID, userId)
             .set(ANSWER_LOGS.MODE, request.mode())
             .set(ANSWER_LOGS.QUESTION, request.question())
-            .set(ANSWER_LOGS.IS_CORRECT, (byte) (request.isCorrect() ? 1 : 0))
+            .set(ANSWER_LOGS.IS_CORRECT, request.isCorrect())
             .set(ANSWER_LOGS.ANSWERED_AT, LocalDateTime.now())
             .execute();
     }
@@ -40,7 +40,7 @@ public class AnswerService {
         var results = dsl.select(
                 ANSWER_LOGS.MODE,
                 DSL.count().as("answers"),
-                DSL.sum(ANSWER_LOGS.IS_CORRECT).as("correct")
+                DSL.sum(ANSWER_LOGS.IS_CORRECT.cast(Integer.class)).as("correct")
             )
             .from(ANSWER_LOGS)
             .where(ANSWER_LOGS.USER_ID.eq(userId))
@@ -71,7 +71,7 @@ public class AnswerService {
             .fetch(r -> new AnswerLogResponse(
                 r.getMode(),
                 r.getQuestion(),
-                r.getIsCorrect() != 0,
+                r.getIsCorrect(),
                 r.getAnsweredAt()
             ));
     }
@@ -80,14 +80,14 @@ public class AnswerService {
         return dsl.select(
                 ANSWER_LOGS.QUESTION,
                 DSL.count().as("answers"),
-                DSL.sum(ANSWER_LOGS.IS_CORRECT).as("correct")
+                DSL.sum(ANSWER_LOGS.IS_CORRECT.cast(Integer.class)).as("correct")
             )
             .from(ANSWER_LOGS)
             .where(ANSWER_LOGS.USER_ID.eq(userId))
             .and(ANSWER_LOGS.MODE.eq(mode))
             .groupBy(ANSWER_LOGS.QUESTION)
             .having(DSL.count().ge(3))
-            .orderBy(DSL.sum(ANSWER_LOGS.IS_CORRECT).cast(Double.class).div(DSL.count()).asc())
+            .orderBy(DSL.sum(ANSWER_LOGS.IS_CORRECT.cast(Integer.class)).cast(Double.class).div(DSL.count()).asc())
             .limit(limit)
             .fetch(r -> {
                 int answers = r.get("answers", Integer.class);
