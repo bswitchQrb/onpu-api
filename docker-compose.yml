@@ -1,16 +1,15 @@
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: onpu-mysql
+  postgres:
+    image: postgres:16
+    container_name: onpu-postgres
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: onpu
-      MYSQL_USER: onpu
-      MYSQL_PASSWORD: onpu
+      POSTGRES_DB: onpu
+      POSTGRES_USER: onpu
+      POSTGRES_PASSWORD: onpu
     ports:
-      - "3307:3306"
+      - "5432:5432"
     volumes:
-      - onpu-mysql-data:/var/lib/mysql
+      - onpu-postgres-data:/var/lib/postgresql/data
 
 volumes:
-  onpu-mysql-data:
+  onpu-postgres-data:

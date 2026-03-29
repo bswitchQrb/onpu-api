@@ -21,84 +21,84 @@ public class UsersRecord extends UpdatableRecordImpl<UsersRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>onpu.users.id</code>.
+     * Setter for <code>public.users.id</code>.
      */
     public void setId(Long value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>onpu.users.id</code>.
+     * Getter for <code>public.users.id</code>.
      */
     public Long getId() {
         return (Long) get(0);
     }
 
     /**
-     * Setter for <code>onpu.users.login_id</code>.
+     * Setter for <code>public.users.login_id</code>.
      */
     public void setLoginId(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>onpu.users.login_id</code>.
+     * Getter for <code>public.users.login_id</code>.
      */
     public String getLoginId() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>onpu.users.password_hash</code>.
+     * Setter for <code>public.users.password_hash</code>.
      */
     public void setPasswordHash(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>onpu.users.password_hash</code>.
+     * Getter for <code>public.users.password_hash</code>.
      */
     public String getPasswordHash() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>onpu.users.nickname</code>.
+     * Setter for <code>public.users.nickname</code>.
      */
     public void setNickname(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>onpu.users.nickname</code>.
+     * Getter for <code>public.users.nickname</code>.
      */
     public String getNickname() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>onpu.users.created_at</code>.
+     * Setter for <code>public.users.created_at</code>.
      */
     public void setCreatedAt(LocalDateTime value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>onpu.users.created_at</code>.
+     * Getter for <code>public.users.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
         return (LocalDateTime) get(4);
     }
 
     /**
-     * Setter for <code>onpu.users.updated_at</code>.
+     * Setter for <code>public.users.updated_at</code>.
      */
     public void setUpdatedAt(LocalDateTime value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>onpu.users.updated_at</code>.
+     * Getter for <code>public.users.updated_at</code>.
      */
     public LocalDateTime getUpdatedAt() {
         return (LocalDateTime) get(5);

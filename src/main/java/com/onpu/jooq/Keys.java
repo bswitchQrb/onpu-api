@@ -18,7 +18,7 @@ import org.jooq.impl.Internal;
 
 /**
  * A class modelling foreign key relationships and constraints of tables in
- * onpu.
+ * public.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Keys {
@@ -27,13 +27,13 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final UniqueKey<AnswerLogsRecord> KEY_ANSWER_LOGS_PRIMARY = Internal.createUniqueKey(AnswerLogs.ANSWER_LOGS, DSL.name("KEY_answer_logs_PRIMARY"), new TableField[] { AnswerLogs.ANSWER_LOGS.ID }, true);
-    public static final UniqueKey<UsersRecord> KEY_USERS_PRIMARY = Internal.createUniqueKey(Users.USERS, DSL.name("KEY_users_PRIMARY"), new TableField[] { Users.USERS.ID }, true);
-    public static final UniqueKey<UsersRecord> KEY_USERS_UK_LOGIN_ID = Internal.createUniqueKey(Users.USERS, DSL.name("KEY_users_uk_login_id"), new TableField[] { Users.USERS.LOGIN_ID }, true);
+    public static final UniqueKey<AnswerLogsRecord> ANSWER_LOGS_PKEY = Internal.createUniqueKey(AnswerLogs.ANSWER_LOGS, DSL.name("answer_logs_pkey"), new TableField[] { AnswerLogs.ANSWER_LOGS.ID }, true);
+    public static final UniqueKey<UsersRecord> USERS_LOGIN_ID_KEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_login_id_key"), new TableField[] { Users.USERS.LOGIN_ID }, true);
+    public static final UniqueKey<UsersRecord> USERS_PKEY = Internal.createUniqueKey(Users.USERS, DSL.name("users_pkey"), new TableField[] { Users.USERS.ID }, true);
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<AnswerLogsRecord, UsersRecord> ANSWER_LOGS_IBFK_1 = Internal.createForeignKey(AnswerLogs.ANSWER_LOGS, DSL.name("answer_logs_ibfk_1"), new TableField[] { AnswerLogs.ANSWER_LOGS.USER_ID }, Keys.KEY_USERS_PRIMARY, new TableField[] { Users.USERS.ID }, true);
+    public static final ForeignKey<AnswerLogsRecord, UsersRecord> ANSWER_LOGS__ANSWER_LOGS_USER_ID_FKEY = Internal.createForeignKey(AnswerLogs.ANSWER_LOGS, DSL.name("answer_logs_user_id_fkey"), new TableField[] { AnswerLogs.ANSWER_LOGS.USER_ID }, Keys.USERS_PKEY, new TableField[] { Users.USERS.ID }, true);
 }

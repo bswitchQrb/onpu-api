@@ -6,7 +6,7 @@ package com.onpu.jooq.tables;
 
 import com.onpu.jooq.Indexes;
 import com.onpu.jooq.Keys;
-import com.onpu.jooq.Onpu;
+import com.onpu.jooq.Public;
 import com.onpu.jooq.tables.Users.UsersPath;
 import com.onpu.jooq.tables.records.AnswerLogsRecord;
 
@@ -48,7 +48,7 @@ public class AnswerLogs extends TableImpl<AnswerLogsRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>onpu.answer_logs</code>
+     * The reference instance of <code>public.answer_logs</code>
      */
     public static final AnswerLogs ANSWER_LOGS = new AnswerLogs();
 
@@ -61,34 +61,34 @@ public class AnswerLogs extends TableImpl<AnswerLogsRecord> {
     }
 
     /**
-     * The column <code>onpu.answer_logs.id</code>.
+     * The column <code>public.answer_logs.id</code>.
      */
     public final TableField<AnswerLogsRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>onpu.answer_logs.user_id</code>.
+     * The column <code>public.answer_logs.user_id</code>.
      */
     public final TableField<AnswerLogsRecord, Long> USER_ID = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>onpu.answer_logs.mode</code>.
+     * The column <code>public.answer_logs.mode</code>.
      */
     public final TableField<AnswerLogsRecord, String> MODE = createField(DSL.name("mode"), SQLDataType.VARCHAR(30).nullable(false), this, "");
 
     /**
-     * The column <code>onpu.answer_logs.question</code>.
+     * The column <code>public.answer_logs.question</code>.
      */
     public final TableField<AnswerLogsRecord, String> QUESTION = createField(DSL.name("question"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
-     * The column <code>onpu.answer_logs.is_correct</code>.
+     * The column <code>public.answer_logs.is_correct</code>.
      */
-    public final TableField<AnswerLogsRecord, Byte> IS_CORRECT = createField(DSL.name("is_correct"), SQLDataType.TINYINT.nullable(false), this, "");
+    public final TableField<AnswerLogsRecord, Boolean> IS_CORRECT = createField(DSL.name("is_correct"), SQLDataType.BOOLEAN.nullable(false), this, "");
 
     /**
-     * The column <code>onpu.answer_logs.answered_at</code>.
+     * The column <code>public.answer_logs.answered_at</code>.
      */
-    public final TableField<AnswerLogsRecord, LocalDateTime> ANSWERED_AT = createField(DSL.name("answered_at"), SQLDataType.LOCALDATETIME(0).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<AnswerLogsRecord, LocalDateTime> ANSWERED_AT = createField(DSL.name("answered_at"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("CURRENT_TIMESTAMP"), SQLDataType.LOCALDATETIME)), this, "");
 
     private AnswerLogs(Name alias, Table<AnswerLogsRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);
@@ -99,21 +99,21 @@ public class AnswerLogs extends TableImpl<AnswerLogsRecord> {
     }
 
     /**
-     * Create an aliased <code>onpu.answer_logs</code> table reference
+     * Create an aliased <code>public.answer_logs</code> table reference
      */
     public AnswerLogs(String alias) {
         this(DSL.name(alias), ANSWER_LOGS);
     }
 
     /**
-     * Create an aliased <code>onpu.answer_logs</code> table reference
+     * Create an aliased <code>public.answer_logs</code> table reference
      */
     public AnswerLogs(Name alias) {
         this(alias, ANSWER_LOGS);
     }
 
     /**
-     * Create a <code>onpu.answer_logs</code> table reference
+     * Create a <code>public.answer_logs</code> table reference
      */
     public AnswerLogs() {
         this(DSL.name("answer_logs"), null);
@@ -154,12 +154,12 @@ public class AnswerLogs extends TableImpl<AnswerLogsRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Onpu.ONPU;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.asList(Indexes.ANSWER_LOGS_IDX_USER_MODE);
+        return Arrays.asList(Indexes.IDX_ANSWER_LOGS_USER_MODE);
     }
 
     @Override
@@ -169,22 +169,22 @@ public class AnswerLogs extends TableImpl<AnswerLogsRecord> {
 
     @Override
     public UniqueKey<AnswerLogsRecord> getPrimaryKey() {
-        return Keys.KEY_ANSWER_LOGS_PRIMARY;
+        return Keys.ANSWER_LOGS_PKEY;
     }
 
     @Override
     public List<ForeignKey<AnswerLogsRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ANSWER_LOGS_IBFK_1);
+        return Arrays.asList(Keys.ANSWER_LOGS__ANSWER_LOGS_USER_ID_FKEY);
     }
 
     private transient UsersPath _users;
 
     /**
-     * Get the implicit join path to the <code>onpu.users</code> table.
+     * Get the implicit join path to the <code>public.users</code> table.
      */
     public UsersPath users() {
         if (_users == null)
-            _users = new UsersPath(this, Keys.ANSWER_LOGS_IBFK_1, null);
+            _users = new UsersPath(this, Keys.ANSWER_LOGS__ANSWER_LOGS_USER_ID_FKEY, null);
 
         return _users;
     }
