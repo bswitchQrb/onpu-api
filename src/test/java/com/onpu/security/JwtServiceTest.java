@@ -46,4 +46,13 @@ class JwtServiceTest {
     void validateToken_returnsFalseForEmptyToken() {
         assertFalse(jwtService.validateToken(""));
     }
+
+    @Test
+    void constructor_withUnresolvedPlaceholder_failsWithClearMessage() {
+        JwtProperties props = new JwtProperties();
+        props.setSecret("${JWT_SECRET}");
+        props.setExpirationMs(86400000L);
+        IllegalStateException e = assertThrows(IllegalStateException.class, () -> new JwtService(props));
+        assertTrue(e.getMessage().contains("JWT_SECRET"));
+    }
 }

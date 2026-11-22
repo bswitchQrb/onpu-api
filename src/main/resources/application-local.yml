@@ -1,0 +1,5 @@
+# ローカル開発用の設定（SPRING_PROFILES_ACTIVE=local のときだけ読まれる）。
+# この鍵は公開リポジトリに載っているので、本番では絶対に local プロファイルを使わないこと。
+app:
+  jwt:
+    secret: onpu-local-dev-secret-key-only-for-localhost-at-least-256-bits!!

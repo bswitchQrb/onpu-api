@@ -60,4 +60,11 @@ jooq {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    // JWT_SECRET に既定値が無いので、テストでは環境変数（CI）か、テスト専用の鍵を使う
+    systemProperty("app.jwt.secret", System.getenv("JWT_SECRET") ?: "test-secret-key-for-local-tests-at-least-256-bits-long-enough!!")
+}
+
+// ./gradlew bootRun はローカル開発用なので、local プロファイル（application-local.yml）で起動する
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    systemProperty("spring.profiles.active", System.getenv("SPRING_PROFILES_ACTIVE") ?: "local")
 }
