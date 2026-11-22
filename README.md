@@ -41,7 +41,7 @@
 | メソッド | パス | 説明 |
 |---------|------|------|
 | POST | `/api/auth/register` | ユーザー登録 |
-| POST | `/api/auth/login` | ログイン |
+| POST | `/api/auth/login` | ログイン（同じ ID で15分以内に5回失敗すると、しばらく 429 を返す） |
 
 ### ユーザー（認証必須）
 
@@ -129,6 +129,8 @@ docker compose up -d
 
 API は http://localhost:8080 で起動します。
 
+`./gradlew bootRun` は `local` プロファイル（`application-local.yml`）で起動します。jar を直接起動するときは `SPRING_PROFILES_ACTIVE=local` を付けるか、`JWT_SECRET` を設定してください。
+
 ### 環境変数
 
 | 変数名 | 説明 | デフォルト |
@@ -136,7 +138,7 @@ API は http://localhost:8080 で起動します。
 | `DATABASE_URL` | JDBC接続URL | `jdbc:postgresql://localhost:5432/onpu` |
 | `DATABASE_USERNAME` | DBユーザー名 | `onpu` |
 | `DATABASE_PASSWORD` | DBパスワード | `onpu` |
-| `JWT_SECRET` | JWT署名キー（256bit以上） | 開発用デフォルト値 |
+| `JWT_SECRET` | JWT署名キー（256bit以上） | **必須**（無いと起動しない）。`./gradlew bootRun` は local プロファイルの開発用の鍵を使う |
 | `CORS_ALLOWED_ORIGINS` | 許可オリジン（カンマ区切り） | `http://localhost:5173` |
 
 ## ライセンス

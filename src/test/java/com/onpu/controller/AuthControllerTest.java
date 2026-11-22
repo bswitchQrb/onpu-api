@@ -98,6 +98,31 @@ class AuthControllerTest {
     }
 
     @Test
+    void login_afterTooManyFailures_returns429EvenWithCorrectPassword() throws Exception {
+        String id = uniqueId();
+        registerAndGetToken(id);
+
+        for (int i = 0; i < 5; i++) {
+            mockMvc.perform(post("/api/auth/login")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("""
+                        {"loginId": "%s", "password": "wrongpassword"}
+                        """.formatted(id)))
+                .andExpect(status().isBadRequest());
+        }
+
+        // 失敗が続いたあとは、正しいパスワードでもしばらく断る
+        mockMvc.perform(post("/api/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {"loginId": "%s", "password": "password123"}
+                    """.formatted(id)))
+            .andExpect(status().isTooManyRequests())
+            .andExpect(header().exists("Retry-After"))
+            .andExpect(jsonPath("$.error").isNotEmpty());
+    }
+
+    @Test
     void me_withValidToken_returns200() throws Exception {
         String id = uniqueId();
         String token = registerAndGetToken(id);

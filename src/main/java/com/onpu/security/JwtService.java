@@ -16,7 +16,13 @@ public class JwtService {
     private final long expirationMs;
 
     public JwtService(JwtProperties props) {
-        this.key = Keys.hmacShaKeyFor(props.getSecret().getBytes(StandardCharsets.UTF_8));
+        String secret = props.getSecret();
+        // JWT_SECRET が無いと "${JWT_SECRET}" という文字列のまま渡ってくるので、分かりやすいメッセージで止める
+        if (secret == null || secret.isBlank() || secret.startsWith("${")) {
+            throw new IllegalStateException(
+                "環境変数 JWT_SECRET が設定されていません。ローカル開発では SPRING_PROFILES_ACTIVE=local で起動してください");
+        }
+        this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationMs = props.getExpirationMs();
     }
 
