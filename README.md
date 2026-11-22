@@ -138,3 +138,7 @@ API は http://localhost:8080 で起動します。
 | `DATABASE_PASSWORD` | DBパスワード | `onpu` |
 | `JWT_SECRET` | JWT署名キー（256bit以上） | 開発用デフォルト値 |
 | `CORS_ALLOWED_ORIGINS` | 許可オリジン（カンマ区切り） | `http://localhost:5173` |
+
+## ライセンス
+
+[MIT License](LICENSE) © 2026 bswitchQrb
