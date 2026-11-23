@@ -41,7 +41,7 @@
 | メソッド | パス | 説明 |
 |---------|------|------|
 | POST | `/api/auth/register` | ユーザー登録 |
-| POST | `/api/auth/login` | ログイン（同じ ID で15分以内に5回失敗すると、しばらく 429 を返す） |
+| POST | `/api/auth/login` | ログイン（失敗が続くと、しばらく 429 を返す） |
 
 ### ユーザー（認証必須）
 
@@ -63,50 +63,6 @@
 | GET | `/api/answers/history?limit={n}` | 回答履歴取得 |
 | GET | `/api/stats` | 全体成績取得 |
 | GET | `/api/stats/weak-points?mode={mode}&limit={n}` | 苦手問題取得 |
-
-## DB スキーマ
-
-```sql
-users
-├── id            BIGSERIAL PRIMARY KEY
-├── login_id      VARCHAR(50) NOT NULL UNIQUE
-├── password_hash VARCHAR(255) NOT NULL
-├── nickname      VARCHAR(50) NOT NULL
-├── created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-└── updated_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
-answer_logs
-├── id          BIGSERIAL PRIMARY KEY
-├── user_id     BIGINT NOT NULL → users(id)
-├── mode        VARCHAR(30) NOT NULL
-├── question    VARCHAR(100) NOT NULL
-├── is_correct  BOOLEAN NOT NULL
-└── answered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    INDEX idx_answer_logs_user_mode (user_id, mode)
-```
-
-## ディレクトリ構成
-
-```
-src/main/java/com/onpu/
-├── OnpuApiApplication.java       # エントリーポイント
-├── controller/
-│   ├── AuthController.java       # 認証エンドポイント
-│   ├── QuestionController.java   # 出題エンドポイント
-│   ├── AnswerController.java     # 回答エンドポイント
-│   └── GlobalExceptionHandler.java
-├── service/
-│   ├── AuthService.java          # 認証ロジック
-│   ├── QuestionService.java      # 苦手重み付き出題
-│   └── AnswerService.java        # 回答記録・成績集計
-├── security/
-│   ├── SecurityConfig.java       # Spring Security 設定
-│   ├── JwtService.java           # JWT生成・検証
-│   ├── JwtAuthenticationFilter.java
-│   └── JwtProperties.java
-├── dto/                          # リクエスト・レスポンス
-└── jooq/                         # jOOQ 自動生成コード
-```
 
 ## 開発
 
